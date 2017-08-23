@@ -1,0 +1,30 @@
+Sheena Requirement Doc
+1.	Flashy/ attractive website that catches immediate attention
+2.	3 modes of access -
+a.	External User  - anyone can create login/password to setup the profile for payment, booking etc.
+b.	Partners - the partners working with Shenna can login and setup their profile to do business with Sheena
+c.	Shenna Admin - to make changes to partners or users
+d.	
+External User Workflow
+e.	User comes to website, clicks on find Henna Artists
+f.	The search criteria can be address or zip code with option to chose 5/10/25 miles radius
+g.	The search query should return the henna artist names per the query, no contact number, just name and customer star ratings; the artist names will also not be the real names, it might be just for the website assigned by Shenna Admin (to prevent users reaching to the artist directly)
+h.	User selects the artist
+i.	User selects the time slot
+j.	User selects the package - all the henna to be done or the hours the artist needed
+k.	User pays for the service using credit card, paypal, etc
+l.	User gets confirmation of the purchase
+m.	Artist gets email, confirms the timing
+n.	User gets confirmation of the artist availability for the selected slot, then the deal becomes final.
+o.	Artist serves the user, completes the task using app or website
+p.	User gets satisfaction survey to enter the rating and comments 
+Partner workflow
+	Partners will be recruited after carefully screening their work and contract sign with all the details to setup account.
+1.	Admin enters the detail for a partner (name, address, phone, account for financial transaction etc)
+2.	There will be a name given by admin which maps 1:1 with the real user name
+3.	Partner gets email to setup the profile with login/password
+4.	Partner should have all the transaction details for the services he/she has done and amount of money made
+
+Country specific pricing model
+	The App will be launched in India and US in the initial phases and the DB schema must be designed towards pricing model which might varies from country to country
+

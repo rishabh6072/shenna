@@ -1,0 +1,30 @@
+<% include partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Add Product</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/products" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="product[name]" placeholder="Product Name" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="file" name="product[image]" placeholder="Image url" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="Number" name="product[price]" placeholder="price" required>
+                </div>
+                <div class="form-group">
+					<textarea rows="4" class="form-control" type="text" name="product[description]" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Add Product</button>
+                </div>
+            </form>
+            <a href="/products">Go Back</a>
+        </div>
+    </div>
+</div>
+
+
+<% include partials/footer %>

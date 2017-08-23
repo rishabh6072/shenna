@@ -1,0 +1,10 @@
+<% include partials/header %>
+
+<% products.forEach(function(product){ %>
+			<img src ="<%= product.image %>">
+			<H2> <%= product.name %></H2>
+			<h4>Price: <%= product.price %> $</h4>
+			<h4>Description: <%= product.description %></h4>
+<% }); %>
+
+<% include partials/footer %>
