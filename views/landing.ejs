@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+				<link rel="stylesheet" type="text/css" href="/stylesheets/landing.css">
+				<link href="https://fonts.googleapis.com/css?family=Clicker+Script|Dancing+Script|Montez|Parisienne" rel="stylesheet">
+				<script src="https://use.fontawesome.com/0e875e4cf4.js"></script>
+				<title>Shenna</title>
+</head>
+
+<body>
+<header class="jumbotron jumbotron-fluid">
+
+	<nav class="navbar navbar-default" data-spy="affix" data-offset-top="650">
+
+		<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			    </button>
+			<a class="navbar-brand" href="/">Shenna</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-nav-demo">
+		    <ul class="nav navbar-nav">
+				<li><a href="/">Home</a></li>
+				<% if(!currentUser || currentUser.usertype != "admin"){ %>
+						<li><a href="/products">Store</a></li>
+				<% } else { %>
+						<li><a href="/products">Manage Store</a></li>
+				<% } %>
+				<li><a href="/">About</a></li>
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<% if(!currentUser){ %>
+						<li><a href="/register">Sign up <i class="fa fa-user-plus" aria-hidden="true"></i></a></li>
+						<li><a href="/login">Login <i class="fa fa-user" aria-hidden="true"></i></a></li>
+				<% } else { %>
+						<% if(currentUser.usertype == "admin"){ %>
+							<li><a href="/addproduct">Add Product</a></li>
+						<% } %>
+						<li><a href="#">Hi, <%= currentUser.name %></a></li>
+						<li><a href="/logout">Logout</a></li>
+				<% } %>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+	  <h1 class="display-3">Bringing Perfection To Your<br> Fingertips!</h1>
+<!--	  <p class="lead">SHenna has artists all over California. Our services range from modern, casual henna to bridal henna. </p>-->
+	  <hr class="my-4">		
+		<form action="/products" method="POST">
+			<div class="form-group">
+				<input type="text" name="serviceablearea" placeholder="Enter Your Location">
+				<button class="btn btn-primary btn-lg" role="button">Book Now!!</button>
+			</div>
+		</form>
+	</div>
+</header>
+	
+
+<div class="container" id="featured_products">
+	<h2>Featured Products</h2>
+	<hr>
+	<div class ="row text-center" style="display: flex; flex-wrap: wrap;">
+		<% products.forEach(function(product){ %>
+			<% if(product.isfeatured){ %>
+				<div class ="col-md-4 col-sm-6">
+					<div class="thumbnail">	
+						<img src ="<%= product.image %>">
+						<h4> <%= product.name %></h4>
+						<p>Price: <%= product.price %> $</p>
+						<p>Description: <%= product.description %></p>
+					</div>
+				</div>
+			<% } %>
+		<% }); %>	
+	</div>
+	<a href="/products"><h3>View All Products</h3></a>
+</div>
+<% include partials/footer %>

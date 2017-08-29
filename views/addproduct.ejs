@@ -17,6 +17,20 @@
                 <div class="form-group">
 					<textarea rows="4" class="form-control" type="text" name="product[description]" required></textarea>
                 </div>
+				<div class="form-group">
+					<p>Add to Featured products</p>
+                    <input type="radio" name="product[isfeatured]" value="false" checked>No
+                    <input type="radio" name="product[isfeatured]" value="true">Yes
+                </div>
+				<div class="form-group">
+                    <input type="radio" name="product[isservice]" value="true">Service
+                    <input type="radio" name="product[isservice]" value="false">Product
+                </div>
+				<div class="form-group">
+					<input type="text" name="product[serviceablearea]" placeholder="Location 1">
+					<input type="text" name="product[serviceablearea]" placeholder="Location 2">
+					<input type="text" name="product[serviceablearea]" placeholder="Location 3">
+				</div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Add Product</button>
                 </div>

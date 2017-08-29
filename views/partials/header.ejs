@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+<div id="wrap">
 <nav class="navbar-default">
 
 		<div class="navbar-header">
@@ -20,19 +20,32 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			    </button>
-			<a class="navbar-brand" href="#">Shenna</a>
+			<a class="navbar-brand" href="/">Shenna</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-nav-demo">
 			<ul class="nav navbar-nav">
 				<li><a href="/">Home</a></li>
-				<li><a href="/products">Store</a></li>
-				<li><a href="/">Services</a></li>
+				<% if(!currentUser || currentUser.usertype != "admin"){ %>
+						<li><a href="/products">Store</a></li>
+				<% } else { %>
+						<li><a href="/products">Manage Store</a></li>
+				<% } %>
 				<li><a href="/">About</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/">Sign up <i class="fa fa-user-plus" aria-hidden="true"></i></a></li>
-				<li><a href="/">Login <i class="fa fa-user" aria-hidden="true"></i></a></li>
+				<% if(!currentUser){ %>
+						<li><a href="/register">Sign up <i class="fa fa-user-plus" aria-hidden="true"></i></a></li>
+						<li><a href="/login">Login <i class="fa fa-user" aria-hidden="true"></i></a></li>
+				<% } else { %>
+						<% if(currentUser.usertype == "admin"){ %>
+							<li><a href="/addproduct">Add Product</a></li>
+						<% } %>
+						<li><a href="#">Hi, <%= currentUser.name %></a></li>
+						<li><a href="/logout">Logout</a></li>
+				<% } %>
+				
+				
 
 			</ul>
 		</div>

@@ -1,10 +1,24 @@
 <% include partials/header %>
 
-<% products.forEach(function(product){ %>
-			<img src ="<%= product.image %>">
-			<H2> <%= product.name %></H2>
-			<h4>Price: <%= product.price %> $</h4>
-			<h4>Description: <%= product.description %></h4>
-<% }); %>
+<div class="container">
+    <div class ="row text-center" style="display: flex; flex-wrap: wrap;">
+		<% products.forEach(function(product){ %>
+            <div class ="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src ="<%= product.image %>">
+                    <div class="caption">
+               			<H3> <%= product.name %></H3>
+               			<h4><%= product.price %> $</h4>
+						<h4><%= product.description.substring(0, 15) %>...</h4>
+                    </div>
+					<% if(currentUser && currentUser.usertype == "admin") { %>
+						<a href="#" class="btn btn-sm">Edit</a>
+						<a href="#" class="btn btn-sm">Delete</a>
+					<% } %>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
 
 <% include partials/footer %>

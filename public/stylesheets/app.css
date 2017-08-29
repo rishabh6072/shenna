@@ -1,1 +1,71 @@
 /*CSS FIle*/
+
+html,body{
+    height: 100%;
+    margin: 0;
+}
+
+#wrap
+{
+min-height: 85%;
+}
+
+/*navbar*/
+
+.navbar-default{
+	background: rgb(200, 72, 53);
+	border: none;
+	font-size: 1.3em;
+	margin-bottom: 40px;
+	padding: 6px 0;
+}
+.navbar-brand {
+	font-size: 1.4em;
+}
+
+.navbar-default a, .well a {
+	color: floralwhite !important;
+}
+
+a:hover{
+	color: rgb(100, 72, 53) !important;
+}
+
+/*Footer*/
+.well {
+    color: white;
+	margin: auto 0;
+    text-align: center;
+    background-color: rgb(17, 17, 17);
+	border: none;
+	border-radius: 0;
+	min-height: 120px;
+}
+
+
+.circle {
+	width: 35px;
+	height: 35px;
+	background: white;
+	border-radius: 50px;
+	margin: 0 5px 8px 0;
+}
+
+.well .fa {
+	padding-top: 3px;
+	margin-left: 6px;
+	color: rgb(17, 17, 17);
+}
+
+
+
+/*Product page*/
+
+.thumbnail {
+	padding: 0;
+/*	border: none;*/
+}
+
+.thumbnail a {
+	color: rgb(200, 72, 53);
+}
