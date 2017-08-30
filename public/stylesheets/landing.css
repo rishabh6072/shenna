@@ -2,8 +2,8 @@
 
 .jumbotron {
 	background-image: url("https://img1.wsimg.com/isteam/ip/1ff36eb0-bcba-4cdf-9022-3472283acb8e/839fa066-ce67-4501-99f2-51492fd0fa51.JPG");
-	background-blend-mode:hard-light;
-	background-color: rgb(1, 5, 2);
+	background-blend-mode: soft-light;
+	background-color: rgb(25, 25, 25);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -19,7 +19,7 @@
 .container h1{
 	padding-top: 50px;
 	font-size: 6em;
-	font-weight: 500;
+	font-weight: 400;
 	font-family: 'Clicker Script', cursive;
 }
 
@@ -34,9 +34,9 @@ a:hover{
 .navbar-default{
 	background: transparent;
 	margin-top: 0;
-	padding-top: 0;
+	padding-top: 6px;
 	border: none;
-	font-size: 1.4em;
+	font-size: 1.3em;
 }
 .navbar-brand {
 	font-size: 1.4em;
@@ -54,6 +54,11 @@ a:hover{
 /*      padding-top: 70px;*/
 }
 
+.badge {
+	background-color: rgb(200, 72, 53);
+	border-radius: 50%;
+	font-size: .7em;
+}
 
 .btn{
 	background-color: rgb(200, 72, 53);

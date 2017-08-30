@@ -11,6 +11,7 @@
                			<h4><%= product.price %> $</h4>
 						<h4><%= product.description.substring(0, 15) %>...</h4>
                     </div>
+					<a href="/add-to-cart/<%= product._id %>">Add To Cart</a>
 					<% if(currentUser && currentUser.usertype == "admin") { %>
 						<a href="#" class="btn btn-sm">Edit</a>
 						<a href="#" class="btn btn-sm">Delete</a>

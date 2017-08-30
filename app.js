@@ -5,7 +5,10 @@ var bodyParser    = require("body-parser"),
 	LocalStrategy = require("passport-local"),
 	Product       = require("./models/product"),
 	User 	      = require("./models/users"),
+	Cart		  = require("./models/cart"),
 	app 		  = express(),
+	session 	  =	require("express-session"),
+	MongoStore 	  = require("connect-mongo")(session),
 	multer 		  = require("multer");
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -21,7 +24,9 @@ mongoose.connect(url, { useMongoClient: true });
 app.use(require("express-session")({
     secret: "who cares if one more light goes off, in the sky of a million stars",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+	store: new MongoStore({ mongooseConnection: mongoose.connection }),
+	cookie: {maxAge: 180 * 60 * 1000}, //180min
 }));
 
 app.use(passport.initialize());
@@ -30,9 +35,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+
 //Middleware them will run for every single route
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
+	res.locals.session = req.session;
 	next();
 });
 
@@ -159,6 +166,32 @@ app.post("/products", isLoggedInadmin, function(req, res){
             res.redirect("/products");
         }
     });
+});
+
+
+//Add to cart Route
+
+app.get("/add-to-cart/:id", function(req, res){
+	var cart = new Cart(req.session.cart ? req.session.cart : {});
+	Product.findById(req.params.id, function(err, product){
+		if(err){
+			return res.redirect("/");
+		}
+		cart.add(product, product.id);
+		req.session.cart = cart;
+		console.log(req.session.cart);
+		res.redirect("/products");
+	});
+});
+
+// Shopping cart
+
+app.get("/shoppingcart", function(req, res){
+	if(!req.session.cart) {
+		return res.render("shoppingcart",{products: null});
+	}
+	var cart = new Cart(req.session.cart);
+	res.render("shoppingcart", {products: cart.generateArray(), totalPrice: cart.totalPrice});
 });
 
 app.listen(4200, "localhost", function(){

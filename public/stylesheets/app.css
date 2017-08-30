@@ -30,6 +30,12 @@ min-height: 85%;
 a:hover{
 	color: rgb(100, 72, 53) !important;
 }
+/*Shopping Cart*/
+.badge {
+	background-color: rgb(17, 17, 17);
+	border-radius: 50%;
+	font-size: .7em;
+}
 
 /*Footer*/
 .well {
