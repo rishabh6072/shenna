@@ -6,15 +6,21 @@ var bodyParser    = require("body-parser"),
 	Product       = require("./models/product"),
 	User 	      = require("./models/users"),
 	Cart		  = require("./models/cart"),
+	methodOverride= require("method-override"),
 	app 		  = express(),
 	session 	  =	require("express-session"),
 	MongoStore 	  = require("connect-mongo")(session),
 	multer 		  = require("multer");
 
+var productRoutes = require("./routes/products"),
+	cartRoutes 	  = require("./routes/cart"),
+	indexRoutes	  = require("./routes/index");
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); 
 app.use(express.static(__dirname + "/public"));
 //app.use(express.static("/public"));
+app.use(methodOverride("_method"));
 
 var url = "mongodb://localhost/shenna"
 mongoose.connect(url, { useMongoClient: true });
@@ -43,156 +49,9 @@ app.use(function(req, res, next){
 	next();
 });
 
-//Index Route
-
-app.get("/", function(req, res){
-	Product.find({}, function(err, products){
-		if(err){
-			console.log(err);
-		} else {
-			res.render("landing", {products: products});
-		}
-	});
-});
-
-//Auth Routes
-
-//Show register form
-app.get("/register",function(req, res) {
-    res.render("register");
-});
-
-//Sign Up logic
-
-app.post("/register", function(req, res) {
-    var newUser = new User({username: req.body.username, name: req.body.name, dob: req.body.dob, address: req.body.address, phone: req.body.phone, usertype: req.body.usertype});
-    User.register(newUser, req.body.password, function(err, user){
-        if(err){
-            console.log(err);
-            return res.render("register");
-        }
-        passport.authenticate("local")(req, res, function(){
-			res.redirect("/");
-        });	
-    });
-});
-
-
-// Show Login Form
-app.get("/login", function(req, res) {
-    res.render("login");
-});
-
-
-//login logic
-
-app.post("/login", passport.authenticate("local",
-    {
-        successRedirect: "/",
-        failureRedirect: "/login",
-    }), function(req, res) {
-});
-
-
-//Logout Route
-
-app.get("/logout", function(req, res){
-	req.logout();
-	res.redirect("/");
-});
-
-
-//Middleware
-function isLoggedInCustomer(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	} else {
-		res.redirect("/login");
-	}
-}
-
-function isLoggedInadmin(req, res, next){
-	if(req.isAuthenticated() && req.user.usertype == "admin"){
-		return next();
-	} else {
-		res.send("permission denied");
-	}
-}
-//Products Route
-app.get("/products", function(req, res){
-	Product.find({}, function(err, products){
-		if(err){
-			console.log(err);
-		} else {
-			res.render("product", {products: products});
-		}
-	});
-});
-//Find Product by location.
-
-app.post("/products", function(req, res){
-	var location = req.body.serviceablearea.toLowerCase();
-	if(location){
-		Product.find({serviceablearea : location}, function(err, products){
-		if(err){
-			console.log(err);
-		} else {
-			res.render("product", {products: products});
-		}
-		});	
-	} else {
-		Product.find({}, function(err, products){
-		if(err){
-			console.log(err);
-		} else {
-			res.render("product", {products: products});
-		}
-	});
-	}
-});
-
-
-//Show addProduct form
-app.get("/addproduct", isLoggedInadmin, function(req, res){
-	res.render("addproduct");
-});
-
-//Product Post Route
-app.post("/products", isLoggedInadmin, function(req, res){
-	Product.create(req.body.product, function(err){
-        if(err){
-            console.log(err);
-        } else {
-            res.redirect("/products");
-        }
-    });
-});
-
-
-//Add to cart Route
-
-app.get("/add-to-cart/:id", function(req, res){
-	var cart = new Cart(req.session.cart ? req.session.cart : {});
-	Product.findById(req.params.id, function(err, product){
-		if(err){
-			return res.redirect("/");
-		}
-		cart.add(product, product.id);
-		req.session.cart = cart;
-		console.log(req.session.cart);
-		res.redirect("/products");
-	});
-});
-
-// Shopping cart
-
-app.get("/shoppingcart", function(req, res){
-	if(!req.session.cart) {
-		return res.render("shoppingcart",{products: null});
-	}
-	var cart = new Cart(req.session.cart);
-	res.render("shoppingcart", {products: cart.generateArray(), totalPrice: cart.totalPrice});
-});
+app.use(indexRoutes);
+app.use(productRoutes);
+app.use(cartRoutes);
 
 app.listen(4200, "localhost", function(){
     console.log("server started");

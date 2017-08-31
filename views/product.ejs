@@ -11,10 +11,12 @@
                			<h4><%= product.price %> $</h4>
 						<h4><%= product.description.substring(0, 15) %>...</h4>
                     </div>
-					<a href="/add-to-cart/<%= product._id %>">Add To Cart</a>
+					<a href="/add-to-cart/<%= product._id %>" class="btn btn-md btn-success">Add To Cart</a>
 					<% if(currentUser && currentUser.usertype == "admin") { %>
-						<a href="#" class="btn btn-sm">Edit</a>
-						<a href="#" class="btn btn-sm">Delete</a>
+						<a href="/products/<%= product._id %>/edit" class="btn btn-xs">Edit</a>
+						<form id="delete-form" action="/products/<%= product._id %>?_method=DELETE" method="POST">
+                               <button class="btn btn-xs">Delete</button>
+						</form>
 					<% } %>
                 </div>
             </div>

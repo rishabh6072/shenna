@@ -75,3 +75,28 @@ a:hover{
 .thumbnail a {
 	color: rgb(200, 72, 53);
 }
+.btn-xs {
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	margin: 0 0 5px 0;
+}
+
+.btn-xs:hover {
+	background-color: rgb(200, 72, 53);
+}
+
+.btn-md {
+	display: inline-block;
+	color: black !important;
+}
+
+.btn-success {
+	border: none;
+	border-radius: 0;
+	margin: 0 0 5px 0;
+}
+
+#delete-form {
+    display: inline;
+}
